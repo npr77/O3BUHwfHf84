@@ -1,6 +1,7 @@
 import express from 'express'
 import { connectDb } from './config/db.js'
 import Product from './models/product.model.js'
+import mongoose from 'mongoose'
 
 const app = express()
 
@@ -9,6 +10,16 @@ app.get('/', (req, res) => {
 })
 
 app.use(express.json())
+
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find({})
+        res.status(200).json({ success: true, data: products })
+    } catch (error) {
+        console.error("Error fetching products: ", error.message)
+        res.status(500).json({ success: false, message: error.message })
+    }
+})
 
 app.post('/api/products', async (req, res) => {
 
@@ -27,6 +38,35 @@ app.post('/api/products', async (req, res) => {
         console.error("Product not created: ", error.message)
         res.status(500).json({ success: false, message: "Product not created.", error: error.message })
     }
+})
+
+app.put('/api/products/:id', async (req, res) => {
+    const { id } = req.params
+    const product = req.body
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid Product Id." })
+    }
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(id, product, { new: true })
+        res.status(200).json({ success: true, message: "Product updated.", data: updatedProduct })
+    } catch (error) {
+        console.error("Product not updated: ", error.message)
+        res.status(500).json({ success: false, message: "Server Error" })
+    }
+})
+
+app.delete('/api/products/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        await Product.findByIdAndDelete(id)
+        res.status(200).json({ success: true, message: "Product deleted." })
+    } catch (error) {
+        console.error("Product not de leted: ", error.message)
+        res.status(404).json({ success: false, message: "Product not found." })
+    }
+
 })
 
 app.listen(3000, () => {
