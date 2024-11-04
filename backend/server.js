@@ -1,5 +1,6 @@
 import express from 'express'
 import { connectDb } from './config/db.js'
+import Product from './models/product.model.js'
 
 const app = express()
 
@@ -7,7 +8,9 @@ app.get('/', (req, res) => {
     res.send("Server is ready.")
 })
 
-app.post('/products', async (req, res) => {
+app.use(express.json())
+
+app.post('/api/products', async (req, res) => {
 
     const product = req.body
 
