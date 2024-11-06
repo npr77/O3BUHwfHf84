@@ -4,7 +4,7 @@ import { connectDb } from './config/db.js'
 import productRoutes from './routes/product.route.js'
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 app.get('/', (req, res) => {
     res.send("Server is ready.")
