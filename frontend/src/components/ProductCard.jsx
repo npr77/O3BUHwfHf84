@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
                 </Text>
 
                 <HStack spacing={"2"}>
-                    <IconButton icon={<CiEdit />} colorScheme={"blue"} />
+                    <IconButton icon={<CiEdit />} colorScheme={"blue"} onClick={onOpen} />
                     <IconButton icon={<CiTrash />} onClick={() => handleDeleteProduct(product._id)} colorScheme='red' />
 
 
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
                     <ModalBody>
                         <VStack spacing={"4"}>
                             <Input placeholder='Product Name' value={product.name} />
-                            <Input placeholder='Price' value={product.price} />
+                            <Input placeholder='Price' value={product.price} type='number' />
                             <Input placeholder='Image' value={product.image} />
                         </VStack>
                     </ModalBody>
