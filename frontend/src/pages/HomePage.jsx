@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, SimpleGrid, Text, textDecoration, VStack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useProductStore } from '../store/product'
+import ProductCard from '../components/ProductCard'
 
 const HomePage = () => {
+
+
+    const { fetchProducts, products } = useProductStore()
+
+    useEffect(() => {
+        fetchProducts()
+    }, [fetchProducts])
+
+    console.log(products)
+
     return (
         <Container maxWidth="container.xl" py={12}>
             <VStack spacing={8}>
@@ -21,7 +33,9 @@ const HomePage = () => {
                     spacing={10}
                     w={"full"}
                 >
-
+                    {products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
                 </SimpleGrid>
 
                 <Text fontSize={"xl"} textAling={"center"} fontWeight='bold' color="gray.500">
