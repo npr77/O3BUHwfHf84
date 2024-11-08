@@ -21,9 +21,10 @@ const HomePage = () => {
                 <Text
                     fontSize={"30"}
                     fontWeight={"bold"}
-                    bgGraient="linear(to-r, #000000, #ffffff)"
+                    bgGradient="linear(to-r, #000000, #ffffff)"
                     bgClip={"text"}
-                    textAling={"center"}
+                    textAlign={"center"}
+
                 >
                     Current Products 🚀
                 </Text>
@@ -34,12 +35,12 @@ const HomePage = () => {
                     w={"full"}
                 >
                     {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </SimpleGrid>
 
                 {products.length === 0 && (
-                    <Text fontSize={"xl"} textAling={"center"} fontWeight='bold' color="gray.500">
+                    <Text fontSize={"xl"} textAlign={"center"} fontWeight='bold' color="gray.500">
                         No Products found 😞{" "}
                         <Link to={"/create"}>
                             <Text as={"span"} color={"blue.500"} _hover={{ textDecoration: "underline" }}>

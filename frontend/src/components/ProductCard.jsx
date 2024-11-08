@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, IconButton, Image, Text, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, Heading, HStack, IconButton, Image, Input, Modal, ModalContent, ModalOverlay, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Text, useColorModeValue, useDisclosure, useToast, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { useProductStore } from '../store/product';
@@ -7,6 +7,7 @@ const ProductCard = ({ product }) => {
 
     const textColor = useColorModeValue("gray.600", "gray.200")
     const bg = useColorModeValue("white", "gray.800")
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const { deleteProduct } = useProductStore()
     const toast = useToast()
@@ -59,6 +60,30 @@ const ProductCard = ({ product }) => {
 
                 </HStack>
             </Box>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+
+                <ModalContent>
+                    <ModalHeader>Update Product</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <VStack spacing={"4"}>
+                            <Input placeholder='Product Name' value={product.name} />
+                            <Input placeholder='Price' value={product.price} />
+                            <Input placeholder='Image' value={product.image} />
+                        </VStack>
+                    </ModalBody>
+
+                    <ModalFooter>
+                        <Button colorScheme='blue' mr={3}>Update</Button>
+                        <Button variant='ghost' onClick={onClose}>Cancel</Button>
+                    </ModalFooter>
+
+                </ModalContent>
+
+            </Modal>
+
         </Box>
     )
 }
