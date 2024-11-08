@@ -24,6 +24,7 @@ export const useProductStore = create((set) => ({
         set({ products: data.data });
     },
     updateProduct: async (id, updatedProduct) => {
+
         const res = await fetch(`/api/products/${id}`, {
             method: "PUT",
             headers: {
@@ -31,12 +32,19 @@ export const useProductStore = create((set) => ({
             },
             body: JSON.stringify(updatedProduct),
         });
+
         const data = await res.json();
+
+        if (!data.success) return { success: false, message: data.message }
+
         set((state) => ({
             products: state.products.map((product) =>
                 product._id === id ? data.data : product
             ),
         }));
+
+        return { success: true, message: data.message }
+
     },
     deleteProduct: async (id) => {
 
