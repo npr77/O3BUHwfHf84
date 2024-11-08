@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, textDecoration, VStack } from '@chakra-ui/react'
+import { Container, SimpleGrid, Text, textDecoration, VStack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const HomePage = () => {
@@ -15,6 +15,14 @@ const HomePage = () => {
                 >
                     Current Products 🚀
                 </Text>
+
+                <SimpleGrid
+                    columns={{ base: 1, md: 2, lg: 3 }}
+                    spacing={10}
+                    w={"full"}
+                >
+
+                </SimpleGrid>
 
                 <Text fontSize={"xl"} textAling={"center"} fontWeight='bold' color="gray.500">
                     No Products found 😞{" "}
